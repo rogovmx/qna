@@ -4,10 +4,10 @@ FactoryBot.define do
   factory :question do
     title
     body "MyText"
-  end
-  
-  trait :invalid do
-    title nil
-    body nil   
+    
+    trait :invalid do
+      title nil
+      body nil   
+    end
   end
 end
