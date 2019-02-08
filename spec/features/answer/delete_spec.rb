@@ -21,7 +21,7 @@ feature 'delete answer', %q{
       sign_in(create(:user))
       visit question_path(answer.question)
       
-      expect(page).to_not have_content 'Delete answer'
+      expect(page).to_not have_link 'Delete answer'
     end
   end
   
@@ -29,7 +29,7 @@ feature 'delete answer', %q{
     scenario 'not logged in user cannot see delete button' do
       visit question_path(answer.question)
       
-      expect(page).not_to have_content 'Delete answer'
+      expect(page).not_to have_link 'Delete answer'
     end
   end
   

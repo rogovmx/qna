@@ -25,7 +25,6 @@ feature 'Create answer', %q{
     fill_in 'answer[body]', with: 'My test answer'
     click_on 'Post your answer'
 
-    expect(page).to have_content 'User must exist'
     expect(page).should_not have_content 'My test answer'
   end  
   

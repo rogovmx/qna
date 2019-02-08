@@ -8,7 +8,7 @@ table
       th Body
       th Answers
     tbody
-    - unless @questions.empty?
+    - if @questions.any?
       - @questions.each do |question|
         tr
           td = link_to question.title, question_path(question)

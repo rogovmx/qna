@@ -1,5 +1,5 @@
 FactoryBot.define do
-  sequence(:body) {|i| "Test body number #{i}"}
+  sequence(:body) {|i| "Test answer body number #{i}"}
   
   factory :answer do
     user

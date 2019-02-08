@@ -1,4 +1,6 @@
 class AnswersController < ApplicationController
+  before_action :authenticate_user!
+  
   helper_method :question
   helper_method :answer
 
@@ -21,12 +23,14 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    if current_user.author_of?(answer)
-      answer.destroy
-      redirect_to question, notice: "Answer deleted"
-    else 
-      redirect_to question, notice: "No access to delete this answer"
-    end
+    notice = 
+      if current_user.author_of?(answer)
+        answer.destroy
+        "Answer deleted"
+      else 
+        "No access to delete this answer"
+      end
+    redirect_to question, notice: notice 
   end
 
   private

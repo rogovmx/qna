@@ -1,5 +1,5 @@
 FactoryBot.define do
-  sequence(:title) {|i| "Title number: #{i}"}
+  sequence(:title) {|i| "Question Title number: #{i}"}
   
   factory :question do
     user
@@ -10,14 +10,11 @@ FactoryBot.define do
       title nil
       body nil   
     end
-  end
-  
-  factory :question_with_answers, class: Question do
-    user
-    title
-    body "MyText"
-    after(:create) do |question|
-      create_list(:answer, 5, question: question)
+    
+    trait :with_answers do
+      after(:create) do |question|
+        create_list(:answer, 5, question: question)
+      end     
     end
-  end    
+  end   
 end
