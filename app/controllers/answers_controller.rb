@@ -23,14 +23,14 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    notice = 
+    flash[:notice] = 
       if current_user.author_of?(answer)
         answer.destroy
         "Answer deleted"
       else 
         "No access to delete this answer"
       end
-    redirect_to question, notice: notice 
+    redirect_to question
   end
 
   private

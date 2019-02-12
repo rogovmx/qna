@@ -47,17 +47,27 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'POST #create' do
+    let(:valid_question_action) do
+      post :create, params: { question: attributes_for(:question) }
+    end
+    
     before { login(user) }
     
     context 'with valid attributes' do
       it 'saves the new question in the DB' do
-        expect { post :create, params: { question: attributes_for(:question) } }.to change(Question, :count).by(1)
+        expect { valid_question_action }.to change(Question, :count).by(1)
       end
 
       it 'redirects to show' do
-        post :create, params: { question: attributes_for(:question) }
+        valid_question_action
         expect(response).to redirect_to question_path(assigns(:question))
       end
+      
+      it 'associates current user with question' do
+        valid_question_action
+        expect(assigns(:question).user_id).to eq user.id
+      end    
+      
     end
 
     context 'with invalid attributes' do
