@@ -1,0 +1,6 @@
+<% if answer.errors.any? %>
+  $('.answer-errors').html("<%=j render 'shared/errors', resource: answer %>");
+<% else %>
+  $('.answers').html("<%= j render @answers %>") 
+<% end %>  
+$('.notice').html("<%= flash[:notice] %>");

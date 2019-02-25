@@ -9,8 +9,8 @@ html
     = javascript_include_tag 'application'
     /, 'data-turbolinks-track': 'reload'
   body
-    p.notice = notice 
-    p.alert = alert
+    p.notice.alert.alert-info = notice 
+    p.alert.alert-warning = alert
     p
       -if user_signed_in?
         = link_to "Log out (#{current_user.email})", destroy_user_session_path, method: :delete

@@ -9,7 +9,7 @@ feature 'delete answer', %q{
   given(:answer) { create(:answer) }
   
   context 'logged in user' do
-    scenario 'author deletes his answer' do
+    scenario 'author deletes his answer', js: true do
       sign_in(answer.user)
       visit question_path(answer.question)
       delete_action

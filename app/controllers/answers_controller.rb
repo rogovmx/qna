@@ -3,36 +3,33 @@ class AnswersController < ApplicationController
   
   helper_method :question
   helper_method :answer
-
+ 
   def create
     @answer = question.answers.new(answer_params)
     @answer.user = current_user
-    if @answer.save
-      redirect_to question, notice: "Your answer have been successfully added"
-    else
-      render 'questions/show'
-    end
+    @answer.save
   end
 
   def update
     if answer.update(answer_params)
-       redirect_to question, notice: "Your answer have been successfully updated"
-    else
-      render 'questions/show'
+       flash.now[:notice] = "Your answer have been successfully updated"
     end
   end
 
   def destroy
-    flash[:notice] = 
-      if current_user.author_of?(answer)
-        answer.destroy
-        "Answer deleted"
-      else 
-        "No access to delete this answer"
-      end
-    redirect_to question
+    if current_user.author_of?(answer)
+      answer.destroy
+      flash.now[:notice] = "Answer deleted"
+    end 
   end
 
+  def set_best
+    if current_user.author_of?(question)
+      answer.set_best
+      @answers = answer.question.answers.reload
+    end
+  end
+  
   private
 
   def answer

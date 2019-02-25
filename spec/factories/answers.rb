@@ -1,5 +1,5 @@
 FactoryBot.define do
-  sequence(:body) {|i| "Test answer body number #{i}"}
+  sequence(:body) { |i| "Test answer body number #{i}" }
   
   factory :answer do
     user
@@ -7,7 +7,7 @@ FactoryBot.define do
     body
     
     trait :invalid do
-      body nil   
+      body { nil }
     end
   end
 end
