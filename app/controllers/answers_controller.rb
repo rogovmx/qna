@@ -11,7 +11,7 @@ class AnswersController < ApplicationController
   end
 
   def update
-    if answer.update(answer_params)
+    if current_user.author_of?(answer) && answer.update(answer_params)
        flash.now[:notice] = "Your answer have been successfully updated"
     end
   end

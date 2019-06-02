@@ -65,7 +65,7 @@ RSpec.describe AnswersController, type: :controller do
       it 'not saves answer' do
         patch :update, params: { id: answer, answer: { body: 'Custom not factored answer' }, format: :js }
         answer.reload
-        expect(answer.body).to eq answer.body
+        expect(answer.body).to_not eq 'Custom not factored answer'
       end
     end
         
