@@ -7,6 +7,11 @@
     p = 'BEST' if answer.best?
     p(class="answer-error-#{answer.id}")
     p.answer-body = answer.body
+    - if answer.files.attached?
+      p
+        - answer.files.each do |file|
+          span = link_to file.filename.to_s, url_for(file)
+          | &nbsp;
 
     - if current_user&.author_of?(question) && !answer.best?
       = link_to 'set best', set_best_answer_path(answer), method: :patch, id: 'select-as-best-link', remote: true

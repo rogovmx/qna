@@ -1,0 +1,6 @@
+$('.question-errors').html("<%=j render 'shared/errors', resource: question %>");
+$('.notice').html("<%= flash[:notice] %>");
+<% if !question.errors.present? %>
+  $('#question' ).html("<%= j render question %>");
+<% end %>  
+

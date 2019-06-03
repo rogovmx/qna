@@ -32,6 +32,17 @@ feature 'user can create question', %q{
 
       expect(page).to have_content "Title can't be blank"
     end
+    
+    scenario 'creates question with attached files' do
+      fill_in 'question[title]', with: 'Test question'
+      fill_in 'question[body]', with: 'question text'
+      attach_file 'question[files][]', ["#{Rails.root}/public/404.html", "#{Rails.root}/public/422.html"]
+      click_on 'Ask'
+      
+      expect(page).to have_link '404.html'
+      expect(page).to have_link '422.html'
+    end
+    
   end
   
   scenario 'Non-auth user tries to create question' do

@@ -13,8 +13,6 @@ class QuestionsController < ApplicationController
 
   def new; end
 
-  def edit; end
-
   def create
     @question = current_user.questions.new(question_params)
     if @question.save
@@ -25,10 +23,8 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if question.update(question_params)
-      redirect_to question, notice: 'Your question successfully added'
-    else
-      render :edit
+    if current_user.author_of?(question) && question.update(question_params)
+      flash.now[:notice] = "Your question successfully updated"
     end
   end
 
@@ -44,10 +40,10 @@ class QuestionsController < ApplicationController
   private
 
   def question
-    @question ||= params[:id] ? Question.find(params[:id]) : current_user.questions.new
+    @question ||= params[:id] ? Question.with_attached_files.find(params[:id]) : current_user.questions.new
   end
 
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, files: [])
   end
 end

@@ -36,16 +36,6 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
-  describe 'GET #edit' do
-    before { login(user) }
-    
-    before { get :edit, params: { id: question } }
-
-    it 'renders edit view' do
-      expect(response).to render_template :edit
-    end
-  end
-
   describe 'POST #create' do
     let(:valid_question_action) do
       post :create, params: { question: attributes_for(:question) }
@@ -86,7 +76,7 @@ RSpec.describe QuestionsController, type: :controller do
     before { login(user) }
     
     let(:update_action) do
-      patch :update, params: { id: question, question: { title: 'updated title', body: 'updated body' } }
+      patch :update, params: { id: question, question: { title: 'updated title', body: 'updated body' }, format: :js  }
     end
 
     context 'update with valid attributes' do

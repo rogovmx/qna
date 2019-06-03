@@ -1,0 +1,30 @@
+
+  .question-errors
+    = render 'shared/errors', resource: question
+
+  .card-header
+    h1
+      | Question author: #{question.user.email}
+  .card-body
+
+    h2.card-title = question.title
+    p.body = question.body
+
+    - if question.files.attached?
+      - question.files.each do |file|
+        p = link_to file.filename.to_s, url_for(file)
+
+    p = link_to 'Edit question', '', class: 'edit-question-link' if current_user&.author_of?(question)
+    p = link_to 'Delete question', question_path(question), method: :delete if current_user&.author_of?(question)
+
+  = form_with model: question, class: 'hidden', id: "edit-question"  do |f|
+    p
+      = f.label :title
+      = f.text_field :title
+    p
+      = f.label :body
+      = f.text_area :body
+    p
+      = f.label :file
+      = f.file_field :files, multiple: true
+    = f.submit 'Save', class: 'btn btn-primary'
