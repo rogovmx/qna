@@ -4,11 +4,11 @@ FactoryBot.define do
   factory :question do
     user
     title
-    body "MyText"
+    body { "MyText" }
     
     trait :invalid do
-      title nil
-      body nil   
+      title { nil }
+      body { nil }
     end
     
     trait :with_answers do

@@ -7,6 +7,7 @@ table
       th Title
       th Body
       th Answers
+      th Author
     tbody
     - if @questions.any?
       - @questions.each do |question|
@@ -14,6 +15,7 @@ table
           td = link_to question.title, question_path(question)
           td = link_to question.body, question_path(question)
           td = question.answers.count
+          td = question.user.email
     -else
       tr 
         td List is empty

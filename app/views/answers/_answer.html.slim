@@ -1,10 +1,24 @@
 - if answer.persisted?
-  hr
   .answer(id="answer-#{answer.id}")
+    hr
     p 
       ' Author:
       = answer.user.email
+    p = 'BEST' if answer.best?
+    p(class="answer-error-#{answer.id}")
     p.answer-body = answer.body
 
+    - if current_user&.author_of?(question) && !answer.best?
+      = link_to 'set best', set_best_answer_path(answer), method: :patch, id: 'select-as-best-link', remote: true
+
     - if current_user&.author_of?(answer)
-      = link_to 'Delete answer', answer, method: :delete
+      p = link_to 'Delete answer', answer, method: :delete, remote: true
+      p = link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
+
+
+    = form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}" } do |f|
+      p
+        = f.label :body, 'Answer:'
+        = f.text_area :body
+      = f.submit 'Save', class: 'btn btn-primary'
+

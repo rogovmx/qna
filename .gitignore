@@ -22,5 +22,6 @@
 
 .byebug_history
 /nbproject
+.idea/
 config/database.yml
 config/master.key
